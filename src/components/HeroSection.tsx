@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import profileImg from "@/assets/profile.jpg";
 
 const HeroSection = () => {
   return (
@@ -12,16 +11,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col md:flex-row md:items-center md:gap-12"
         >
-          {/* Profile Image */}
-          <div className="shrink-0 mb-8 md:mb-0 md:order-2">
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-border glow-terminal">
-              <img src={profileImg} alt="Achin Varshney" className="w-full h-full object-cover" />
-            </div>
-          </div>
-
-          <div className="md:order-1">
           {/* Status indicator */}
           <div className="flex items-center gap-2 mb-8">
             <span className="inline-block w-2 h-2 rounded-full bg-terminal animate-pulse-terminal" />
@@ -63,7 +53,6 @@ const HeroSection = () => {
             >
               Contact
             </a>
-          </div>
           </div>
         </motion.div>
 
