@@ -1,6 +1,30 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
+  const { toast } = useToast();
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.message.trim()) {
+      toast({ title: "All fields are required", variant: "destructive" });
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      toast({ title: "Please enter a valid email", variant: "destructive" });
+      return;
+    }
+    setSending(true);
+    setTimeout(() => {
+      toast({ title: "Message sent", description: "Thanks for reaching out. I'll get back to you soon." });
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setSending(false);
+    }, 800);
+  };
+
   return (
     <section id="contact" className="py-24 border-t border-grid">
       <div className="container max-w-5xl mx-auto px-6">
@@ -17,15 +41,65 @@ const ContactSection = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <p className="text-secondary-foreground leading-relaxed mb-8">
-                Open to discussing trading systems architecture, distributed infrastructure challenges, or engineering leadership opportunities.
-              </p>
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="font-mono text-xs text-terminal-dim uppercase tracking-wider block mb-2">Name</label>
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  maxLength={100}
+                  className="w-full bg-surface-elevated border border-grid text-foreground px-3 py-2 text-sm font-mono focus:outline-none focus:border-terminal transition-colors placeholder:text-muted-foreground"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="font-mono text-xs text-terminal-dim uppercase tracking-wider block mb-2">Email</label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  maxLength={255}
+                  className="w-full bg-surface-elevated border border-grid text-foreground px-3 py-2 text-sm font-mono focus:outline-none focus:border-terminal transition-colors placeholder:text-muted-foreground"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div>
+                <label className="font-mono text-xs text-terminal-dim uppercase tracking-wider block mb-2">Subject</label>
+                <input
+                  type="text"
+                  value={form.subject}
+                  onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                  maxLength={200}
+                  className="w-full bg-surface-elevated border border-grid text-foreground px-3 py-2 text-sm font-mono focus:outline-none focus:border-terminal transition-colors placeholder:text-muted-foreground"
+                  placeholder="What's this about?"
+                />
+              </div>
+              <div>
+                <label className="font-mono text-xs text-terminal-dim uppercase tracking-wider block mb-2">Message</label>
+                <textarea
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  maxLength={1000}
+                  rows={5}
+                  className="w-full bg-surface-elevated border border-grid text-foreground px-3 py-2 text-sm font-mono focus:outline-none focus:border-terminal transition-colors resize-none placeholder:text-muted-foreground"
+                  placeholder="Your message..."
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={sending}
+                className="font-mono text-sm px-6 py-2.5 border border-terminal text-terminal hover:bg-terminal hover:text-background transition-colors disabled:opacity-50"
+              >
+                {sending ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+
+            {/* Info & Status */}
+            <div className="space-y-8">
               <div className="space-y-4">
-                <a
-                  href="mailto:achin@example.com"
-                  className="flex items-center gap-3 group"
-                >
+                <a href="mailto:achin@example.com" className="flex items-center gap-3 group">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">Email</span>
                   <span className="text-foreground group-hover:text-terminal transition-colors">achin@example.com</span>
                 </a>
@@ -42,24 +116,24 @@ const ContactSection = () => {
                   <span className="text-foreground">Gurugram, India</span>
                 </div>
               </div>
-            </div>
 
-            <div className="p-6 border border-grid bg-surface-elevated glow-terminal">
-              <div className="font-mono text-xs text-terminal-dim mb-4">system.status</div>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground text-sm">Availability</span>
-                  <span className="font-mono text-sm text-terminal">Open to conversation</span>
-                </div>
-                <div className="h-px bg-grid-line" />
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground text-sm">Response Time</span>
-                  <span className="font-mono text-sm text-foreground">&lt; 24 hours</span>
-                </div>
-                <div className="h-px bg-grid-line" />
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground text-sm">Timezone</span>
-                  <span className="font-mono text-sm text-foreground">IST (UTC+5:30)</span>
+              <div className="p-6 border border-grid bg-surface-elevated glow-terminal">
+                <div className="font-mono text-xs text-terminal-dim mb-4">system.status</div>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground text-sm">Availability</span>
+                    <span className="font-mono text-sm text-terminal">Open to conversation</span>
+                  </div>
+                  <div className="h-px bg-grid-line" />
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground text-sm">Response Time</span>
+                    <span className="font-mono text-sm text-foreground">&lt; 24 hours</span>
+                  </div>
+                  <div className="h-px bg-grid-line" />
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground text-sm">Timezone</span>
+                    <span className="font-mono text-sm text-foreground">IST (UTC+5:30)</span>
+                  </div>
                 </div>
               </div>
             </div>
