@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.message.trim()) {
       toast({ title: "All fields are required", variant: "destructive" });
@@ -18,11 +19,20 @@ const ContactSection = () => {
       return;
     }
     setSending(true);
-    setTimeout(() => {
+    try {
+      await emailjs.send("service_mjdqwof", "template_2kum29l", {
+        from_name: form.name,
+        from_email: form.email,
+        subject: form.subject,
+        message: form.message,
+      }, "Ni7vioWYUK9uAKLAX");
       toast({ title: "Message sent", description: "Thanks for reaching out. I'll get back to you soon." });
       setForm({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast({ title: "Failed to send message", description: "Please try again later.", variant: "destructive" });
+    } finally {
       setSending(false);
-    }, 800);
+    }
   };
 
   return (
