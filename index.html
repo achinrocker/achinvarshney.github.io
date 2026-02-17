@@ -12,6 +12,16 @@
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Redirect any non-canonical host (e.g. achinrocker.github.io/achinvarshney.github.io) to www.achinvarshney.com -->
+    <script>
+      (function () {
+        var canonicalHost = "www.achinvarshney.com";
+        if (location.hostname && location.hostname !== canonicalHost) {
+          location.replace("https://" + canonicalHost + location.pathname + location.search + location.hash);
+        }
+      })();
+    </script>
   </head>
 
   <body>

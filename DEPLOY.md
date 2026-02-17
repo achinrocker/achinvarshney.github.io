@@ -126,3 +126,60 @@ If you move the app out of `achinvarshney.github.io/` (e.g. everything is at the
    - A small plugin copies `index.html` to `404.html` during build so client-side routes work on GitHub Pages.
 
 No changes were required in your React Router setup; `BrowserRouter` will work as long as `404.html` is deployed as above.
+
+---
+
+## Custom domain: www.achinvarshney.com & redirects
+
+**Canonical URL:** `https://www.achinvarshney.com`
+
+- **This repo** (achinrocker/achinvarshney.github.io): `public/CNAME` = `www.achinvarshney.com`; `index.html` has a script that redirects any other host (e.g. achinrocker.github.io/achinvarshney.github.io) to www.achinvarshney.com.
+- **achinvarshney.github.io** (the user Pages site): should only redirect to www.achinvarshney.com. Set it up once as below.
+
+### Redirect achinvarshney.github.io → www.achinvarshney.com
+
+On the **achinvarshney** GitHub account, use a repo named **`achinvarshney.github.io`** with **only** these two files at the repo root. Then enable Pages (Deploy from branch → root).
+
+**Root `index.html`** (copy as-is):
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=https://www.achinvarshney.com/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting…</title>
+  <link rel="canonical" href="https://www.achinvarshney.com/" />
+  <script>
+    window.location.replace("https://www.achinvarshney.com/" + window.location.pathname.replace(/^\//, "") + window.location.search + window.location.hash);
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="https://www.achinvarshney.com/">www.achinvarshney.com</a>…</p>
+</body>
+</html>
+```
+
+**Root `404.html`** (copy as-is):
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=https://www.achinvarshney.com/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting…</title>
+  <link rel="canonical" href="https://www.achinvarshney.com/" />
+  <script>
+    window.location.replace("https://www.achinvarshney.com/" + window.location.search + window.location.hash);
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="https://www.achinvarshney.com/">www.achinvarshney.com</a>…</p>
+</body>
+</html>
+```
+
+**DNS (e.g. Namespace):** CNAME `www` → `achinrocker.github.io`. In this repo’s **Settings → Pages**, set custom domain to **www.achinvarshney.com** and enable **Enforce HTTPS**.
