@@ -4,7 +4,8 @@ import path from "path";
 import fs from "fs";
 
 // For GitHub Pages: use "/" if repo is username.github.io, or "/repo-name/" for project pages
-const base = process.env.GITHUB_PAGES_BASE ?? "/";
+// Since your repo is "achinvarshney.github.io" under username "achinrocker", use the repo name as base
+const base = process.env.GITHUB_PAGES_BASE ?? "/achinvarshney.github.io/";
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
