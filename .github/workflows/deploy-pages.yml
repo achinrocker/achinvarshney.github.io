@@ -24,18 +24,16 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: achinvarshney.github.io/package-lock.json
 
       - name: Install and build
         run: |
-          cd achinvarshney.github.io
           npm ci
           npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: achinvarshney.github.io/dist
+          path: dist
 
   deploy:
     needs: build
