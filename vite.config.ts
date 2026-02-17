@@ -2,13 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
-import { componentTagger } from "lovable-tagger";
 
 // For GitHub Pages: use "/" if repo is username.github.io, or "/repo-name/" for project pages
 const base = process.env.GITHUB_PAGES_BASE ?? "/";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   base,
   server: {
     host: "::",
@@ -19,7 +18,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === "development" && componentTagger(),
     // Copy index.html to 404.html so GitHub Pages serves the SPA for all routes (client-side routing)
     {
       name: "copy-404",
