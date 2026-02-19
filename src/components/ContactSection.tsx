@@ -2,6 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 
+// Web3Forms access key must be a UUID. Get yours at https://web3forms.com
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
+
+const isValidUuid = (s: string) =>
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s.trim());
+
 const ContactSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -17,11 +23,16 @@ const ContactSection = () => {
       toast({ title: "Please enter a valid email", variant: "destructive" });
       return;
     }
+    if (!WEB3FORMS_KEY || !isValidUuid(WEB3FORMS_KEY)) {
+      toast({
+        title: "Contact form not configured",
+        description: "Add your Web3Forms access key to .env as VITE_WEB3FORMS_KEY. Get a free key at web3forms.com",
+        variant: "destructive",
+      });
+      return;
+    }
     setSending(true);
     try {
-      // Using Web3Forms - simple, free form service
-      // Get your access key from https://web3forms.com (free, no signup required)
-      // Just enter your email and get an access key instantly
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -29,7 +40,7 @@ const ContactSection = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY", // Get from https://web3forms.com
+          access_key: WEB3FORMS_KEY,
           subject: `Portfolio Contact: ${form.subject}`,
           from_name: form.name,
           from_email: form.email,
@@ -47,10 +58,14 @@ const ContactSection = () => {
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      toast({ 
-        title: "Failed to send message", 
-        description: "Please try again later or contact me directly at achinvarshney93@gmail.com", 
-        variant: "destructive" 
+      const msg = error instanceof Error ? error.message : "";
+      const isKeyError = /invalid.*access_key|form_id|uuid/i.test(msg);
+      toast({
+        title: "Failed to send message",
+        description: isKeyError
+          ? "Contact form key is missing or invalid. Add VITE_WEB3FORMS_KEY to .env (get key at web3forms.com)."
+          : "Please try again later or contact me directly at achinvarshney93@gmail.com",
+        variant: "destructive",
       });
     } finally {
       setSending(false);
