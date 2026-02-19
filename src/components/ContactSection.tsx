@@ -1,17 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from "@emailjs/browser";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
-
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init("Ni7vioWYUK9uAKLAX");
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,28 +19,37 @@ const ContactSection = () => {
     }
     setSending(true);
     try {
-      const result = await emailjs.send("service_mjdqwof", "template_2kum29l", {
-        from_name: form.name,
-        from_email: form.email,
-        to_email: "achinvarshney93@gmail.com",
-        subject: form.subject,
-        message: form.message,
+      // Using Web3Forms - simple, free form service
+      // Get your access key from https://web3forms.com (free, no signup required)
+      // Just enter your email and get an access key instantly
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY", // Get from https://web3forms.com
+          subject: `Portfolio Contact: ${form.subject}`,
+          from_name: form.name,
+          from_email: form.email,
+          message: `Name: ${form.name}\nEmail: ${form.email}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`,
+        }),
       });
-      
-      if (result.text === "OK") {
+
+      const data = await response.json();
+
+      if (data.success) {
         toast({ title: "Message sent", description: "Thanks for reaching out. I'll get back to you soon." });
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error(result.text || "Unknown error");
+        throw new Error(data.message || "Failed to send message");
       }
     } catch (error) {
-      console.error("EmailJS error:", error);
-      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      console.error("Form submission error:", error);
       toast({ 
         title: "Failed to send message", 
-        description: errorMessage.includes("Invalid") || errorMessage.includes("template") 
-          ? "Please check the form configuration." 
-          : "Please try again later or contact me directly at achinvarshney93@gmail.com", 
+        description: "Please try again later or contact me directly at achinvarshney93@gmail.com", 
         variant: "destructive" 
       });
     } finally {
