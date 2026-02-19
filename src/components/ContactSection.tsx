@@ -110,17 +110,17 @@ const ContactSection = () => {
             {/* Info & Status */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <a href="mailto:achin@example.com" className="flex items-center gap-3 group">
+                <a href="mailto:achinvarshney@gmail.com" className="flex items-center gap-3 group">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">Email</span>
-                  <span className="text-foreground group-hover:text-terminal transition-colors">achin@example.com</span>
+                  <span className="text-foreground group-hover:text-terminal transition-colors">achinvarshney@gmail.com</span>
                 </a>
-                <a href="#" className="flex items-center gap-3 group">
+                <a href="https://www.linkedin.com/in/achin-varshney/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">LinkedIn</span>
-                  <span className="text-foreground group-hover:text-terminal transition-colors">linkedin.com/in/achinvarshney</span>
+                  <span className="text-foreground group-hover:text-terminal transition-colors">linkedin.com/in/achin-varshney</span>
                 </a>
-                <a href="#" className="flex items-center gap-3 group">
+                <a href="https://github.com/achinrocker" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">GitHub</span>
-                  <span className="text-foreground group-hover:text-terminal transition-colors">github.com/achinvarshney</span>
+                  <span className="text-foreground group-hover:text-terminal transition-colors">github.com/achinrocker</span>
                 </a>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">Location</span>

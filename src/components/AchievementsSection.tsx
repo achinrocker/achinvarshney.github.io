@@ -4,7 +4,7 @@ const achievements = [
   { label: "Data Science League 2022", detail: "3rd Place" },
   { label: "ACM ICPC Asia Regionals", detail: "Qualifier" },
   { label: "Google Code Jam", detail: "Round 2" },
-  { label: "Springer Publication", detail: "Multimodal ML for Medical Diagnosis" },
+  { label: "Springer Publication", detail: "Multimodal ML for Medical Diagnosis", url: "https://link.springer.com/chapter/10.1007/978-3-319-47952-1_69" },
 ];
 
 const AchievementsSection = () => {
@@ -24,12 +24,34 @@ const AchievementsSection = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            {achievements.map((a) => (
-              <div key={a.label} className="p-5 border border-grid hover:border-terminal-dim/30 transition-colors">
-                <p className="text-foreground font-medium">{a.label}</p>
-                <p className="font-mono text-sm text-terminal-dim mt-1">{a.detail}</p>
-              </div>
-            ))}
+            {achievements.map((a) => {
+              const content = (
+                <>
+                  <p className="text-foreground font-medium">{a.label}</p>
+                  <p className="font-mono text-sm text-terminal-dim mt-1">{a.detail}</p>
+                </>
+              );
+              
+              if (a.url) {
+                return (
+                  <a
+                    key={a.label}
+                    href={a.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-5 border border-grid hover:border-terminal-dim/30 transition-colors block"
+                  >
+                    {content}
+                  </a>
+                );
+              }
+              
+              return (
+                <div key={a.label} className="p-5 border border-grid hover:border-terminal-dim/30 transition-colors">
+                  {content}
+                </div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

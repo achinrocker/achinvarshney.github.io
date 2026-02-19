@@ -41,8 +41,8 @@ const AboutSection = () => {
               <div className="p-4 border border-grid bg-surface-elevated">
                 <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider">Links</span>
                 <div className="flex gap-4 mt-2">
-                  <a href="#" className="font-mono text-sm text-terminal hover:text-foreground transition-colors">LinkedIn</a>
-                  <a href="#" className="font-mono text-sm text-terminal hover:text-foreground transition-colors">GitHub</a>
+                  <a href="https://www.linkedin.com/in/achin-varshney/" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-terminal hover:text-foreground transition-colors">LinkedIn</a>
+                  <a href="https://github.com/achinrocker" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-terminal hover:text-foreground transition-colors">GitHub</a>
                 </div>
               </div>
             </div>
