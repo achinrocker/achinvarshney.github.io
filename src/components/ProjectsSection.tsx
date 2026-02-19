@@ -20,7 +20,7 @@ const projects: Project[] = [
     impact: "~40× improvement in processing throughput. Reduced detection-to-flag latency from minutes to seconds.",
   },
   {
-    name: "GUAS Validation Layer",
+    name: "Broker Security Validation Layer",
     context: "Gateway-level validation service that sits between the order management system and exchange connectivity, enforcing broker–security compatibility rules.",
     problem: "Invalid orders reaching exchanges caused rejections, operational overhead, and potential regulatory exposure. Rules were scattered across multiple systems.",
     approach: "Centralized all validation logic into a single rule engine with a declarative configuration model. Rules are versioned and auditable.",

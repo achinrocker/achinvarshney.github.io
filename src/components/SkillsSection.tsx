@@ -12,7 +12,7 @@ const skillGroups: SkillGroup[] = [
   },
   {
     category: "Languages & Frameworks",
-    items: ["Python", "Java", "C++", "Perl", "Django", "Spring Boot"],
+    items: ["Python", "Java", "C++", "Perl", "Django", "Spring Boot", "React", "Node.js", "Typescript", "Tailwind CSS", "Shadcn UI"],
   },
   {
     category: "Infrastructure",

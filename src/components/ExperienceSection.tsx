@@ -14,7 +14,7 @@ const roles: Role[] = [
     period: "2022 – Present",
     highlights: [
       {
-        text: "Led end-to-end trading connectivity and broker onboarding for new strategies and funds (INEQ, CNEQ, Cogence), ensuring multi-region production readiness",
+        text: "Led end-to-end trading connectivity and broker onboarding for new strategies and funds, ensuring multi-region production readiness",
         detail: "Coordinated across trading desks, broker operations, and infrastructure teams to establish connectivity pipelines with deterministic rollout procedures and automated validation."
       },
       {

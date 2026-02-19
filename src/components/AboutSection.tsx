@@ -32,7 +32,7 @@ const AboutSection = () => {
             <div className="space-y-6">
               <div className="p-4 border border-grid bg-surface-elevated">
                 <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider">Location</span>
-                <p className="text-foreground mt-1">Gurugram, India</p>
+                <p className="text-foreground mt-1">India</p>
               </div>
               <div className="p-4 border border-grid bg-surface-elevated">
                 <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider">Focus</span>

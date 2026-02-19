@@ -124,7 +124,7 @@ const ContactSection = () => {
                 </a>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-terminal-dim uppercase tracking-wider w-16">Location</span>
-                  <span className="text-foreground">Gurugram, India</span>
+                  <span className="text-foreground">India</span>
                 </div>
               </div>
 
