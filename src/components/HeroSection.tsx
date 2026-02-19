@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+import profileImg from "@/assets/profile.jpg";
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center bg-grid-pattern">
@@ -11,24 +13,50 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-10"
         >
-          {/* Status indicator */}
-          <div className="flex items-center gap-2 mb-8">
-            <span className="inline-block w-2 h-2 rounded-full bg-terminal animate-pulse-terminal" />
-            <span className="font-mono text-sm text-terminal-dim tracking-wider uppercase">
-              Tech Lead · D.E. Shaw
-            </span>
+          {/* Profile avatar */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex-shrink-0"
+          >
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-terminal/50 bg-surface-elevated shadow-[0_0_20px_hsl(174_50%_45%_/_0.15)] ring-2 ring-terminal/20">
+              <img
+                src={profileImg}
+                alt="Achin Varshney"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+
+          <div className="min-w-0">
+            {/* Status indicator */}
+            <div className="flex items-center gap-2 mb-6 sm:mb-8">
+              <span className="inline-block w-2 h-2 rounded-full bg-terminal animate-pulse-terminal" />
+              <span className="font-mono text-sm text-terminal-dim tracking-wider uppercase">
+                Tech Lead · D.E. Shaw
+              </span>
+            </div>
+
+            {/* Name */}
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-4">
+              Achin Varshney
+            </h1>
+
+            {/* Title */}
+            <p className="font-mono text-lg md:text-xl text-terminal mb-8">
+              Trading Systems & Distributed Infrastructure
+            </p>
           </div>
+        </motion.div>
 
-          {/* Name */}
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-4">
-            Achin Varshney
-          </h1>
-
-          {/* Title */}
-          <p className="font-mono text-lg md:text-xl text-terminal mb-8">
-            Trading Systems & Distributed Infrastructure
-          </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        >
 
           {/* Value statement */}
           <p className="text-lg md:text-xl text-secondary-foreground max-w-2xl leading-relaxed mb-4">
